@@ -1,10 +1,17 @@
 import scrapy
-
+from datetime import datetime
 
 class DivannewparsSpider(scrapy.Spider):
     name = "divannewpars"
     allowed_domains = ["divan.ru"]
     start_urls = ["https://www.divan.ru/category/svet"]
+
+    # Generate the filename based on the current date and time
+    timestamp = datetime.now().strftime('%Y%m%d%H%M%S')
+    custom_settings = {
+        'FEED_FORMAT': 'csv',
+        'FEED_URI': f'results_{timestamp}.csv'
+    }
 
     def parse(self, response):
          # Создаём переменную, в которую будет сохраняться информация
